@@ -14,9 +14,6 @@ const Noticias = db.define('noticias', {
     },
     descripcion: {
         type: Sequelize.TEXT
-    },
-    fecha: {
-        type: Sequelize.DATEONLY
     }
 });
 

@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require('bcryptjs')
 const Usuarios = require("../models/Usuarios");
-const moment = require('moment');
-const jwt = require('jwt-simple');
+const Perfiles = require('../models/Perfiles');
 
 const {check, validationResult} = require('express-validator');
 
@@ -18,40 +17,22 @@ router.post("/",[
   }
 
   req.body.password = bcrypt.hashSync(req.body.password, 10)
+  const {nombre, password,correo, idperfil} = req.body;
 
-  const usuarios = await Usuarios.create(req.body);
+  const createdAt = ""
+  const updatedAt = ""
+
+  const usuarios = await Usuarios.create({nombre,password,correo,createdAt,updatedAt, idperfil});
   res.json(usuarios);
 });
 
 
-router.post('/login', async (req, res) => {
-  const usuario = await Usuarios.findOne({
-    where: {correo: req.body.correo}
-  })
-
-  if(usuario){
-    const iguales = bcrypt.compareSync(req.body.password, usuario.password);
-    if(iguales){
-      res.json({success: createToken(usuario)})
-    }else{
-      res.json({error: 'Error en usuario y/ contraseña'})
-    }
-  }else{
-    res.json({error: 'Error en usuario y/ contraseña'})
-  }
-})
-
-const createToken = (usuario) => {
-  const payload = {
-    usuarioId: usuario.idusuario,
-    createdAt: moment().unix(),
-    expiredAt: moment().add(5,'minutes').unix()
-  }
-  return jwt.encode(payload, 'secreto')
-}
-
 router.get("/", async (req, res) => {
-  const usuarios = await Usuarios.findAll();
+  const usuarios = await Usuarios.findAll({
+    include:[
+      {model: Perfiles}
+    ]
+  });
   res.json(usuarios);
 });
 
@@ -60,6 +41,9 @@ router.get("/:id", async (req, res) => {
 
   const usuarios = await Usuarios.findOne({
     where: { idusuario: id },
+    include:[
+      {model: Perfiles}
+    ]
   });
   res.json(usuarios);
 });

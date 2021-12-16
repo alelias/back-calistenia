@@ -7,8 +7,10 @@ const Parques = require('../models/Parques');
 
 router.post('/', async (req, res) => {
       const {nombre, latitud, longitud, descripcion} = req.body;
+      const createdAt = ""
+      const updatedAt = ""
 
-      const parque = await Parques.create({nombre, latitud, longitud, descripcion});
+      const parque = await Parques.create({nombre, latitud, longitud, descripcion, createdAt, updatedAt});
       res.json(parque);
       
           

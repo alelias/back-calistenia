@@ -6,8 +6,10 @@ const Perfiles = require("../models/Perfiles");
 
 router.post("/", async (req, res) => {
   const { nombre } = req.body;
+  const createdAt = ""
+  const updatedAt = ""
 
-  const perfiles = await Perfiles.create({ nombre });
+  const perfiles = await Perfiles.create({ nombre,createdAt,updatedAt  });
   res.json(perfiles);
 });
 

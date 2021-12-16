@@ -8,8 +8,10 @@ const Dificultades = require('../models/Dificultades');
 
 router.post('/', async (req, res) => {
       const {nombre, descripcion,link, iddificultad} = req.body;
+      const createdAt = ""
+      const updatedAt = ""
   
-        const rutina = await Rutinas.create({nombre, descripcion, link, iddificultad});
+        const rutina = await Rutinas.create({nombre, descripcion, link,createdAt,updatedAt, iddificultad});
         res.json(rutina);
           
 });

@@ -1,24 +1,21 @@
 const router = require('express').Router();
 
 const Eventos = require('../models/Eventos');
-const Instructores = require('../models/Instructores');
 
 //const {body} = require('express-validator/check');
 
 router.post('/', async (req, res) => {
-      const {nombre, fecha, descripcion, idinstructor} = req.body;
+      const {nombre, fecha, descripcion} = req.body;
+      const createdAt = ""
+      const updatedAt = ""
   
-          const evento = await Eventos.create({nombre,fecha, descripcion, idinstructor});
+          const evento = await Eventos.create({nombre,fecha, descripcion,createdAt,updatedAt});
           res.json(evento);
           
 });
 
 router.get('/', async (req, res) => {
-      const eventos = await Eventos.findAll({
-        include:[
-          {model: Instructores}
-        ]
-      });
+      const eventos = await Eventos.findAll();
       res.json(eventos);
 });
 
@@ -27,11 +24,7 @@ router.get('/:id', async (req, res) => {
       const {id} = req.params;
     
       const evento = await Eventos.findOne({
-          where: {idevento: id},
-          include:[
-            {model: Instructores}
-          ]
-      });
+          where: {idevento: id}});
       res.json(evento);
     })
 

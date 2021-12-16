@@ -7,9 +7,11 @@ const Noticias = require('../models/Noticias');
 
 
 router.post('/', async (req, res) => {
-    const {titulo, descripcion, fecha} = req.body;
+    const {titulo, descripcion} = req.body;
+    const createdAt = ""
+      const updatedAt = ""
   
-    const noticia = await Noticias.create({titulo, descripcion, fecha});
+    const noticia = await Noticias.create({titulo, descripcion, createdAt, updatedAt});
     res.json(noticia);
           
 });

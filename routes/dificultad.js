@@ -7,8 +7,10 @@ const Dificultades = require('../models/Dificultades');
 
 router.post('/', async (req, res) => {
       const {nombre} = req.body;
+      const createdAt = ""
+      const updatedAt = ""
   
-          const dificultad = await Dificultades.create({nombre});
+          const dificultad = await Dificultades.create({nombre, createdAt,updatedAt});
           res.json(dificultad);
           
 });
