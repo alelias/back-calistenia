@@ -27,6 +27,23 @@ router.get('/', async (req, res) => {
   res.json(ejercicios);
 });
 
+router.get('/contador', async (req, res) => {
+  const ejercicios = await Ejercicios.findAndCountAll();
+  res.json(ejercicios);
+});
+
+router.get('/ultimo', async (req, res) => {
+  const ejercicios = await Ejercicios.findAll(
+    {
+      order:[
+        ['createdAt', 'DESC']
+      ],
+      limit: 1
+    }
+  );
+  res.json(ejercicios);
+});
+
 router.get('/:id', async (req, res) => {
 
   const {id} = req.params;

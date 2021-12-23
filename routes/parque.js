@@ -21,6 +21,23 @@ router.get('/', async (req, res) => {
     res.json(parques);
 });
 
+router.get('/contador', async (req, res) => {
+    const parques = await Parques.findAndCountAll();
+    res.json(parques);
+  });
+  
+  router.get('/ultimo', async (req, res) => {
+    const parques = await Parques.findAll(
+      {
+        order:[
+          ['createdAt', 'DESC']
+        ],
+        limit: 1
+      }
+    );
+    res.json(parques);
+  });
+
 router.get('/:id', async (req, res) => {
 
     const {id} = req.params;

@@ -10,7 +10,6 @@ router.post('/', async (req, res) => {
     const usuario = await Usuarios.findOne({
       where: {correo: correo}
     })
-  
     if(usuario){
       const iguales = bcrypt.compareSync(password, usuario.password);
       if(iguales){
@@ -19,8 +18,9 @@ router.post('/', async (req, res) => {
         res.status(405).send('Correo y clave incorrecta')
       }
     }else{
-      res.status(500).json({msj: "Incorrecto"})
+      res.status(500).send("Incorrecto")
     }
+   
   })
   /*
   const createToken = (usuario) => {

@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require('bcryptjs')
 const Usuarios = require("../models/Usuarios");
-const Perfiles = require('../models/Perfiles');
 
 const {check, validationResult} = require('express-validator');
 
@@ -17,22 +16,18 @@ router.post("/",[
   }
 
   req.body.password = bcrypt.hashSync(req.body.password, 10)
-  const {nombre, password,correo, idperfil} = req.body;
+  const {nombre, password,correo, perfil} = req.body;
 
   const createdAt = ""
   const updatedAt = ""
 
-  const usuarios = await Usuarios.create({nombre,password,correo,createdAt,updatedAt, idperfil});
+  const usuarios = await Usuarios.create({nombre,password,correo,perfil,createdAt,updatedAt});
   res.json(usuarios);
 });
 
 
 router.get("/", async (req, res) => {
-  const usuarios = await Usuarios.findAll({
-    include:[
-      {model: Perfiles}
-    ]
-  });
+  const usuarios = await Usuarios.findAll();
   res.json(usuarios);
 });
 
@@ -40,10 +35,7 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   const usuarios = await Usuarios.findOne({
-    where: { idusuario: id },
-    include:[
-      {model: Perfiles}
-    ]
+    where: { idusuario: id }
   });
   res.json(usuarios);
 });

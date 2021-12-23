@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const Noticias = require('../models/Noticias');
-
+const Sequelize = require('sequelize');
 
 //const {body} = require('express-validator/check');
 
@@ -19,6 +19,23 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
       const noticias = await Noticias.findAll();
       res.json(noticias);
+});
+
+router.get('/contador', async (req, res) => {
+  const noticias = await Noticias.findAndCountAll();
+  res.json(noticias);
+});
+
+router.get('/ultimo', async (req, res) => {
+  const noticias = await Noticias.findAll(
+    {
+      order:[
+        ['createdAt', 'DESC']
+      ],
+      limit: 1
+    }
+  );
+  res.json(noticias);
 });
 
 router.get('/:id', async (req, res) => {

@@ -8,7 +8,6 @@ const app = express();
 
 const noticiaRouter = require("./routes/noticia");
 const parqueRouter = require("./routes/parque");
-const perfilRouter = require("./routes/perfil");
 const usuarioRouter = require("./routes/usuario");
 const dificultadRouter = require("./routes/dificultad");
 const ejercicioRouter = require("./routes/ejercicio");
@@ -25,7 +24,6 @@ require("./models/Dificultades");
 require("./models/Ejercicios");
 require("./models/Eventos");
 require("./models/Parques");
-require("./models/Perfiles");
 require("./models/Rutinas");
 require("./models/Usuarios");
 
@@ -40,7 +38,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/noticia", noticiaRouter);
 app.use("/api/parque", parqueRouter);
-app.use("/api/perfil", perfilRouter);
 app.use("/api/usuario", usuarioRouter);
 app.use("/api/dificultad", dificultadRouter);
 app.use("/api/ejercicio", ejercicioRouter);

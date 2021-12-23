@@ -19,6 +19,23 @@ router.get('/', async (req, res) => {
       res.json(eventos);
 });
 
+router.get('/contador', async (req, res) => {
+  const eventos = await Eventos.findAndCountAll();
+  res.json(eventos);
+});
+
+router.get('/ultimo', async (req, res) => {
+  const eventos = await Eventos.findAll(
+    {
+      order:[
+        ['createdAt', 'DESC']
+      ],
+      limit: 1
+    }
+  );
+  res.json(eventos);
+});
+
 router.get('/:id', async (req, res) => {
 
       const {id} = req.params;

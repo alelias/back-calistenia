@@ -12,10 +12,10 @@ const Parques = db.define('parques', {
         type: Sequelize.STRING
     },
     latitud: {
-        type: Sequelize.STRING
+        type: Sequelize.DOUBLE
     },
     longitud: {
-        type: Sequelize.STRING
+        type: Sequelize.DOUBLE
     },
     descripcion: {
         type: Sequelize.TEXT

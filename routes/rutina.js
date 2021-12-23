@@ -27,6 +27,23 @@ router.get('/', async (req, res) => {
   res.json(rutinas);
 });
 
+router.get('/contador', async (req, res) => {
+  const rutinas = await Rutinas.findAndCountAll();
+  res.json(rutinas);
+});
+
+router.get('/ultimo', async (req, res) => {
+  const rutinas = await Rutinas.findAll(
+    {
+      order:[
+        ['createdAt', 'DESC']
+      ],
+      limit: 1
+    }
+  );
+  res.json(rutinas);
+});
+
 router.get('/:id', async (req, res) => {
 
   const {id} = req.params;
